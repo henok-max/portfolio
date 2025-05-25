@@ -15,7 +15,6 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Scripts -->
-    <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 
 <body class="font-sans antialiased bg-gradient-to-br from-gray-50 to-blue-50">
@@ -51,6 +50,8 @@
             </div>
         </footer>
     </div>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+
 </body>
 
 </html>
