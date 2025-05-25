@@ -1,39 +1,43 @@
-# Use the official PHP image with needed extensions
-FROM php:8.2-cli
-
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    git \
-    unzip \
-    curl \
-    libsqlite3-dev \
-    sqlite3 \
-    libzip-dev \
-    zip \
-    && docker-php-ext-install pdo pdo_sqlite
-
-# Install Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+# Use an official PHP image with FPM
+FROM php:8.2-fpm
 
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy project files
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpng-dev \
+    libjpeg-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    curl \
+    unzip \
+    git \
+    sqlite3 \
+    libsqlite3-dev
+
+# Install PHP extensions
+RUN docker-php-ext-install pdo pdo_sqlite mbstring exif pcntl bcmath gd
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Copy the Laravel project files into the container
 COPY . .
 
-# Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader
+# Create the SQLite database file
+RUN mkdir -p database && touch database/database.sqlite
 
-# Create .env file and Laravel app key
-RUN cp .env.example .env \
-    && php artisan key:generate \
-    && mkdir -p storage/framework/{sessions,views,cache} \
-    && chmod -R 775 storage \
-    && chmod -R 775 bootstrap/cache \
-    && touch database/database.sqlite
+# Install PHP dependencies using Composer
+RUN composer install --no-interaction --optimize-autoloader --no-dev
 
-# Expose the port Laravel uses
+# Set file permissions
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database/database.sqlite
+
+# Expose port 8000 for the application
 EXPOSE 8000
 
-# Start the Laravel server
-CMD php artisan serve --host=0.0.0.0 --port=8000
+# Start Laravel server
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
