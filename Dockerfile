@@ -32,7 +32,10 @@ RUN mkdir -p database && touch database/database.sqlite
 
 # Install PHP dependencies using Composer
 RUN composer install --no-interaction --optimize-autoloader --no-dev
-
+# Install Node and build Vite assets
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install && npm run build
 # Set file permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database/database.sqlite
 
