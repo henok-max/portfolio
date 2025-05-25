@@ -32,7 +32,6 @@ RUN mkdir -p database && touch database/database.sqlite
 
 # Install PHP dependencies using Composer
 RUN composer install --no-interaction --optimize-autoloader --no-dev
-RUN php artisan migrate --force
 
 # Set file permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database/database.sqlite
@@ -41,4 +40,4 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 EXPOSE 8000
 
 # Start Laravel server
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
