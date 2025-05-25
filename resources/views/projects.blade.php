@@ -3,8 +3,8 @@
 @section('title', 'My Projects')
 
 @section('content')
-<div class="container px-4 py-1 mx-auto" style="margin: auto;">
-    <h1 class="mb-8 text-3xl font-bold text-gray-800">My Projects</h1>
+<div class="container px-4 py-0 mx-auto" style="margin: auto;">
+    <h1 class="text-4xl font-bold text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">My Projects</h1>
 
     @if($portfolioItems->isEmpty())
     <div class="p-4 text-blue-800 rounded-lg bg-blue-50">

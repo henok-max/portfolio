@@ -10,6 +10,8 @@ use App\Http\Controllers\AdminCertificateController;
 Route::get('/', [PortfolioController::class, 'home'])->name('home');
 Route::get('/projects', [PortfolioController::class, 'index'])->name('projects');
 Route::get('/contact', [PortfolioController::class, 'contact'])->name('contact');
+Route::get('/about', [PortfolioController::class, 'about'])->name('about');
+
 Route::post('/contact', [PortfolioController::class, 'sendContact']);
 Route::get('/projects/{portfolioItem}', [PortfolioController::class, 'show'])->name('projects.show');
 Route::get('/certificates', [PortfolioController::class, 'certificates'])->name('certificates');

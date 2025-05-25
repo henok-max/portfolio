@@ -2,7 +2,7 @@
 @section('title', 'Contact')
 @section('content')
 <div class="p-6 bg-white rounded-lg shadow-lg" style="max-width: 70%; margin:auto;">
-    <h1 class="mb-4 text-2xl font-bold">Contact Me</h1>
+    <h1 class="text-4xl font-bold text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">Contact Me</h1>
     <form action="/contact" method="POST">
         @csrf
         <div class="mb-4">

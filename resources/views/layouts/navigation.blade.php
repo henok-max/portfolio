@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')" class="px-4 py-2 border-2 rounded-lg border-blue-500/20 hover:border-blue-500/40">
                         {{ __('Contact') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('about')" :active="request()->routeIs('about')" class="px-4 py-2 border-2 rounded-lg border-blue-500/20 hover:border-blue-500/40">
+                        {{ __('About') }}
+                    </x-nav-link>
                 </div>
             </div>
 

@@ -38,6 +38,10 @@ class PortfolioController extends Controller
             // 'relatedProjects' => $relatedProjects
         ]);
     }
+    public function about()
+    {
+        return view('about');
+    }
     // Contact page
     public function contact()
     {
