@@ -26,3 +26,31 @@ A Laravel-based web application designed to showcase your personal portfolio, pr
 git clone https://github.com/henok-max/portfolio-management.git
 cd portfolio-management
 ```
+
+### 2. Install Dependencies
+
+```bash
+composer install
+
+### 3. Environment Setup
+cp .env.example .env
+php artisan key:generate
+
+### 4. Run Migrations
+php artisan migrate
+
+### 5. Serve the Application
+
+php artisan serve
+
+### 6. Open your browser and visit:
+http://127.0.0.1:8000
+
+
+
+🙋‍♂️ Author
+Henok Ayalew
+📧 henokayalew31@gmail.com
+
+
+```
