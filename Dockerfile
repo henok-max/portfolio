@@ -4,7 +4,7 @@ FROM php:8.2-fpm
 # Set working directory
 WORKDIR /var/www/html
 
-# Install system dependencies
+# Install system dependencies, including nodejs prerequisites
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpng-dev \
@@ -16,31 +16,47 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     sqlite3 \
-    libsqlite3-dev
+    libsqlite3-dev \
+    curl \
+    gnupg \
+    ca-certificates
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_sqlite mbstring exif pcntl bcmath gd
 
+# Install Node.js 18.x and npm
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
+
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy the Laravel project files into the container
+# Copy only package.json and package-lock.json first for caching npm installs
+COPY package*.json ./
+
+# Install npm dependencies
+RUN npm install
+
+# Copy the rest of the Laravel project files
 COPY . .
 
-# Create the SQLite database file
+# Create SQLite database file if not exists
 RUN mkdir -p database && touch database/database.sqlite
 
-# Install PHP dependencies using Composer
+# Build Vite assets (Tailwind CSS, JS, etc)
+RUN npm run build
+
+# Install PHP dependencies via Composer
 RUN composer install --no-interaction --optimize-autoloader --no-dev
-# Install Node and build Vite assets
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
-    apt-get install -y nodejs && \
-    npm install && npm run build
-# Set file permissions
+
+# Run migrations
+RUN php artisan migrate --force
+
+# Set proper permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database/database.sqlite
 
-# Expose port 8000 for the application
+# Expose port 8000 for Laravel app
 EXPOSE 8000
 
 # Start Laravel server
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
