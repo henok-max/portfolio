@@ -20,19 +20,19 @@ class CertificateSeeder extends Seeder
             'title' => 'Programming Fundamentals',
             'issuer' => 'Udacity',
             'issue_date' => '2024-09-10',
-            'certificate_url' => 'https://drive.google.com/uc?export=view&id=17hG4sxHfFzUVgksIKQoVfOvGwonW0vJ_/view',
+            'certificate_url' => 'https://drive.google.com/file/d/17hG4sxHfFzUVgksIKQoVfOvGwonW0vJ_/view',
         ]);
         Certificate::create([
             'title' => 'Data Analysis Fundamentals',
             'issuer' => 'Udacity',
             'issue_date' => '2024-11-20',
-            'certificate_url' => 'https://drive.google.com/uc?export=view&id=10Mgb5KCjWEKW5NAKanp12wpRiAQXKVtt/view',
+            'certificate_url' => 'https://drive.google.com/file/d/10Mgb5KCjWEKW5NAKanp12wpRiAQXKVtt/view',
         ]);
         Certificate::create([
             'title' => 'React',
             'issuer' => 'Udemy',
             'issue_date' => '2024-11-15',
-            'certificate_url' => 'https://drive.google.com/uc?export=view&id=1PqMAflhBq6uj7mDEQAcuArXr0ACAydWn/view',
+            'certificate_url' => 'https://drive.google.com/file/d/1PqMAflhBq6uj7mDEQAcuArXr0ACAydWn/view',
         ]);
     }
 }
