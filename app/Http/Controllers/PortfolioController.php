@@ -58,7 +58,7 @@ class PortfolioController extends Controller
         ]);
 
         // Send email
-        Mail::to(env('CONTACT_FORM_RECIPIENT'))->send(new ContactFormMail($request->all()));
+        Mail::to('henokayalew31@gmail.com')->send(new ContactFormMail($request->all()));
         return redirect()->back()->with('success', 'Message sent successfully!');
     }
     // app/Http/Controllers/PortfolioController.php
