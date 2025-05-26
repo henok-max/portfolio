@@ -25,6 +25,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY . .
 
 RUN mkdir -p database && touch database/database.sqlite
+RUN mkdir -p public/images/portfolio
 
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
@@ -37,9 +38,12 @@ RUN chown -R www-data:www-data \
     storage \
     bootstrap/cache \
     database/database.sqlite \
+    public/images \
     public/storage
 
 RUN chmod -R 775 storage bootstrap/cache
+RUN chmod -R 755 public/images
+
 RUN chmod 664 database/database.sqlite
 
 EXPOSE 8000

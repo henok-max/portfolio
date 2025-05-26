@@ -15,7 +15,7 @@
         @foreach($portfolioItems as $item)
         <div class="overflow-hidden transition-shadow duration-300 bg-white rounded-lg shadow-md hover:shadow-lg">
             @if($item->image)
-            <img src="{{ $item->image }}" alt="{{ $item->title }}" class="object-cover w-full h-48">
+            <img src="{{ asset($item->image) }}" alt=" {{ $item->title }}" class="object-cover w-full h-48">
 
             @endif
 

@@ -16,7 +16,7 @@ class PortfolioItemSeeder extends Seeder
         PortfolioItem::create([
             'title' => 'DMU E-Learning',
             'description' => 'A project built with Laravel for Debre Markos university.',
-            'image' => 'https://drive.google.com/uc?export=view&id=1-VmTZmiviBpI9uo5A4O3_vaKP4JcVffC',
+            'image' => 'images/portfolio/sOvnFX881PAcCpX8v0Wc6UdWftKzxDKAZw53qcV7.jpg',
 
             'github_url' => 'https://github.com/henok-max/online-learning-system',
             'skills' => 'Laravel, PHP, MySQL',
@@ -25,9 +25,9 @@ class PortfolioItemSeeder extends Seeder
         PortfolioItem::create([
             'title' => 'Court Case Tracking System',
             'description' => 'A project built with .NET Framework for Debre Markos High court.',
-            'image' => 'https://drive.google.com/uc?export=view&id=1hYUzAAnnYWvN1O7b4Qe3nI1XnnkvAsiZ',
+            'image' => 'images/portfolio/NrYDPwGCiZcYQiI0S143VaBRoAiRoVfW7PQKDaRp.jpg',
 
-            'github_url' => 'https://github.com/henok-max/COURTCASETRACKINGSYSTEM',
+            'github_url' => 'NrYDPwGCiZcYQiI0S143VaBRoAiRoVfW7PQKDaRp.jpg',
             'skills' => '.NET, C#, SSMS',
         ]);
     }
