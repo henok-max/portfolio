@@ -41,8 +41,24 @@ RUN php artisan storage:link
 RUN npm install && npm run build
 
 # Set proper permissions
-RUN chown -R www-data:www-data storage bootstrap/cache database/database.sqlite public/storage
-# Expose port
+# Set ownership
+RUN chown -R www-data:www-data \
+    storage \
+    bootstrap/cache \
+    database/database.sqlite \
+    public/storage
+
+# Set directory permissions
+RUN find storage bootstrap/cache -type d -exec chmod 775 {} \;
+
+# Set file permissions
+RUN find storage bootstrap/cache -type f -exec chmod 664 {} \;
+
+# SQLite specific
+RUN chmod 664 database/database.sqlite
+
+# Public assets
+RUN chmod -R 755 public# Expose port
 EXPOSE 8000
 
 # Run migrations, seed data, and serve (with proper error handling)
