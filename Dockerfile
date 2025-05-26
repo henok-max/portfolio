@@ -44,5 +44,7 @@ RUN chown -R www-data:www-data storage bootstrap/cache database/database.sqlite
 # Expose port
 EXPOSE 8000
 
-# Run migrations and serve the app
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
+# Run migrations, seed data, and serve (with proper error handling)
+CMD bash -c "php artisan migrate --force && \
+    php artisan db:seed --force && \
+    php artisan serve --host=0.0.0.0 --port=8000"
