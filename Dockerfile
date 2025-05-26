@@ -36,7 +36,6 @@ RUN mkdir -p database && touch database/database.sqlite
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
 # Create symbolic link for storage
-RUN php artisan storage:link
 # Install Node packages and build Vite assets
 RUN npm install && npm run build
 
@@ -64,4 +63,5 @@ EXPOSE 8000
 # Run migrations, seed data, and serve (with proper error handling)
 CMD bash -c "php artisan migrate --force && \
     php artisan db:seed --force && \
+    php artisan storage:link && \
     php artisan serve --host=0.0.0.0 --port=8000"
