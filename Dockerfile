@@ -58,7 +58,7 @@ RUN find storage bootstrap/cache -type f -exec chmod 664 {} \;
 RUN chmod 664 database/database.sqlite
 
 # Public assets
-RUN chmod -R 755 public# Expose port
+RUN chmod -R 755 public 
 EXPOSE 8000
 
 # Run migrations, seed data, and serve (with proper error handling)
