@@ -7,6 +7,7 @@ use App\Models\PortfolioItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactFormMail;
+use Illuminate\Support\Facades\Log;
 
 class PortfolioController extends Controller
 {
@@ -51,15 +52,22 @@ class PortfolioController extends Controller
     // Handle contact form submission
     public function sendContact(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email',
-            'message' => 'required|string'
+            'message' => 'required|string|min:10'
         ]);
 
-        // Send email
-        Mail::to('henokayalew31@gmail.com')->send(new ContactFormMail($request->all()));
-        return redirect()->back()->with('success', 'Message sent successfully!');
+        try {
+            Mail::to('henokayalew31@gmail.com')->send(
+                new ContactFormMail($validated)
+            );
+
+            return redirect()->back()->with('success', 'Message sent successfully!');
+        } catch (\Exception $e) {
+            Log::error('Email sending failed: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to send message. Please try again.');
+        }
     }
     // app/Http/Controllers/PortfolioController.php
     public function certificates()

@@ -1,15 +1,16 @@
-<!DOCTYPE html>
-<html>
+<x-mail::message>
+    # New Contact Form Submission
 
-<head>
-    <title>Contact Form Submission</title>
-</head>
+    **Name:** {{ $data['name'] }}
+    **Email:** {{ $data['email'] }}
 
-<body>
-    <h2>New Contact Form Submission</h2>
-    <p><strong>Name:</strong> {{ $data['name'] }}</p>
-    <p><strong>Email:</strong> {{ $data['email'] }}</p>
-    <p><strong>Message:</strong> {{ $data['message'] }}</p>
-</body>
+    **Message:**
+    {{ $data['message'] }}
 
-</html>
+    <x-mail::button :url="url('/')">
+        Visit Site
+    </x-mail::button>
+
+    Thanks,<br>
+    {{ config('app.name') }}
+</x-mail::message>

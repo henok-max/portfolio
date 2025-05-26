@@ -12,21 +12,16 @@ class ContactFormMail extends Mailable
 
     public $data;
 
-    public function __construct($data)
+    public function __construct(array $data)
     {
         $this->data = $data;
     }
 
     public function build()
     {
-        return $this->subject('New Contact Form Message')
-            ->from($this->data['email'], $this->data['name']) // optional
-            ->replyTo($this->data['email']) // optional
-            ->view('emails.contact')
-            ->with([
-                'name' => $this->data['name'],
-                'email' => $this->data['email'],
-                'messageContent' => $this->data['message'],
-            ]);
+        return $this->from(config('mail.from.address'))
+            ->subject('New Contact Form Submission')
+            ->markdown('emails.contact-form')
+            ->with(['data' => $this->data]);
     }
 }

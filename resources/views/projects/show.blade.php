@@ -37,7 +37,7 @@
         <!-- Image Section -->
         <div class="lg:col-span-2">
             @if($portfolioItem->image)
-            <img src="{{ asset('storage/' . $portfolioItem->image) }}"
+            <img src="{{ asset($item->image) }}"
                 alt="{{ $portfolioItem->title }}"
                 class="w-full h-auto rounded-lg shadow-md">
             @else
