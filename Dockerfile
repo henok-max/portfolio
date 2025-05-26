@@ -35,12 +35,13 @@ RUN mkdir -p database && touch database/database.sqlite
 # Install PHP dependencies
 RUN composer install --no-interaction --optimize-autoloader --no-dev
 
+# Create symbolic link for storage
+RUN php artisan storage:link
 # Install Node packages and build Vite assets
 RUN npm install && npm run build
 
 # Set proper permissions
-RUN chown -R www-data:www-data storage bootstrap/cache database/database.sqlite
-
+RUN chown -R www-data:www-data storage bootstrap/cache database/database.sqlite public/storage
 # Expose port
 EXPOSE 8000
 

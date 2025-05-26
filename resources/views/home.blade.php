@@ -124,13 +124,14 @@
                             </div>
                         </div>
                         <div class="pt-4 mt-auto border-t border-gray-100">
-                            <a href="{{ asset('storage/' . $certificate->certificate_url) }}"
+                            <a href="{{ $certificate->certificate_url }}"
                                 target="_blank"
-                                class="inline-flex items-center font-medium text-blue-600 hover:text-blue-700 group">
-                                View Credential
-                                <svg class="w-4 h-4 ml-2 transition-transform transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                class="inline-flex items-center px-4 py-2 text-sm font-medium transition-all duration-200 border border-transparent rounded-md text-blue-50 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600">
+                                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                 </svg>
+                                View Credential
                             </a>
                         </div>
                     </div>

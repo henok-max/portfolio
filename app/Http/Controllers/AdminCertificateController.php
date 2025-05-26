@@ -32,8 +32,11 @@ class AdminCertificateController extends Controller
         ]);
 
         // Store file
+        // Store in 'public' disk and get full public URL
         $path = $request->file('certificate_file')->store('certificates', 'public');
-        $data['certificate_url'] = $path;
+        /** @var \Illuminate\Filesystem\FilesystemAdapter $storage */
+        $storage = Storage::disk('public');
+        $data['certificate_url'] = $storage->url($path);
 
         Certificate::create($data);
         return redirect()->route('admin.certificates.index')->with('success', 'Certificate added!');
@@ -55,16 +58,21 @@ class AdminCertificateController extends Controller
             'certificate_file' => 'nullable|file|mimes:pdf,png,jpg|max:2048',
         ]);
 
-        // Update file if new one is uploaded
         if ($request->hasFile('certificate_file')) {
-            Storage::disk('public')->delete($certificate->certificate_url);
+            // Delete old file (get path from URL)
+            $oldPath = str_replace('/storage/', '', parse_url($certificate->certificate_url, PHP_URL_PATH));
+            Storage::disk('public')->delete($oldPath);
+
             $path = $request->file('certificate_file')->store('certificates', 'public');
-            $data['certificate_url'] = $path;
+            /** @var \Illuminate\Filesystem\FilesystemAdapter $storage */
+            $storage = Storage::disk('public');
+            $data['certificate_url'] = $storage->url($path);
         }
 
         $certificate->update($data);
         return redirect()->route('admin.certificates.index')->with('success', 'Certificate updated!');
     }
+
 
     // Delete certificate
     public function destroy(Certificate $certificate)
